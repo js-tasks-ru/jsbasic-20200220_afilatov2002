@@ -7,9 +7,15 @@
 function showSalary (data, age) {
 let results = data.filter(item => item.age <= age);
 let final='';
-for (item in results) {
-final += `${results[item].name}, ${results[item].balance}\n`;
+for (let item in results) {
+
+let name = results[item].name;
+let balance = results[item].balance;
+
+
+final+=`${name}, ${balance}\n`;
 }
-console.log(final.slice(0, -2))
+return(final.slice(0, -1))
 }
+
 
