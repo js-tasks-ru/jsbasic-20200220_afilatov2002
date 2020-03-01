@@ -17,8 +17,30 @@ function SortableTable(items) {
   /**
    * @property {Element} - обязательное свойство, которое ссылается на элемент <table>
    */
-  let sortedData;
- this.el = document.createElement('table');
+let sortedData;
+this.el = document.createElement('table');
+
+let initialHTML = `<thead>
+<tr>
+   <td>Name</td>
+   <td>Age</td>
+   <td>Salary</td>
+   <td>City</td>
+</tr>
+</thead>`;  
+
+this.el.innerHTML = initialHTML;
+
+items.map((item) => {
+  let tbody = document.createElement('tbody');
+   tbody.innerHTML += `<tr>
+   <td>${item.name}</td>
+   <td>${item.age}</td>
+   <td>${item.salary}</td>
+   <td>${item.city}</td>
+</tr>`;
+this.el.appendChild(tbody);
+ });
 
 
   /**
@@ -28,14 +50,7 @@ function SortableTable(items) {
    * @param {boolean} desc - признак того, что сортировка должна идти в обратном порядке
    */
 this.sort = (column, desc = false) => {
-  this.el.innerHTML = `<thead>
-  <tr>
-     <td>Name</td>
-     <td>Age</td>
-     <td>Salary</td>
-     <td>City</td>
- </tr>
-</thead>`;
+  this.el.innerHTML = initialHTML;
 //Name
   if (column == 0 && desc == false) {
   sortedData = items.sort((prev, next) => prev.name > next.name ? 1 : -1);
@@ -75,19 +90,17 @@ if (column == 3 && desc == true) {
 
 let tbody = document.createElement('tbody');
 
-for (item of sortedData) {
-    tbody.innerHTML += `
+sortedData.map((item) => {
+  tbody.innerHTML += `
   <tr>
       <td>${item.name}</td>
       <td>${item.age}</td>
       <td>${item.salary}</td>
       <td>${item.city}</td>
   </tr>`;
-
-}
+});
 this.el.appendChild(tbody);
-}
-
+};
 }
 
 
