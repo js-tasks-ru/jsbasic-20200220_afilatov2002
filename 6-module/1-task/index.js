@@ -41,21 +41,22 @@ class ClearedTable {
               )}
             </table>
     `;
-    document.onclick = (event) => {
+
+    document.onclick = event =>  {
       let target = event.target;
       let id = target.getAttribute('data-toggle-id');
       if (!id) return;
       let elem = document.getElementById(id);
-      elem.hidden = true;
+      elem.remove();
       this.id = id;
-      this.onRemoved(id);
+      this.onRemoved(+id);
        };
        
 
    }
    //End of constructor
   onRemoved(id) {
-    console.log(`Из таблицы удален пользователь ${id}`);
+      console.log(`Из таблицы удален пользователь ${id}`);
    }
   
 
