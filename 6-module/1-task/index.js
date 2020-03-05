@@ -50,20 +50,19 @@ class ClearedTable {
       let id = target.getAttribute('data-toggle-id');
       if (!id) return;
       let elem = document.getElementById(id).remove();
-      this.onRemoved(id);
+      this.onRemoved(+id);
        };
-       
+      
 
-   }
-   //End of constructor
-  onRemoved(id) {
-      console.log(`Из таблицы удален пользователь ${id}`);
    }
   
-
   /**
    * Метод который вызывается после удалении строки
    * @param {number} id - идентификатор удаляемого пользователя
    */
+
+  onRemoved(id) {
+    console.log(`Из таблицы удален пользователь ${id}`);
+ }
   
 }
