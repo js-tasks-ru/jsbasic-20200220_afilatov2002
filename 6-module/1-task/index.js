@@ -18,10 +18,10 @@ class ClearedTable {
     this.el = document.createElement('table');
     this.el.classList.add('pure-table');
     this.data = data;
-    this.id;
     this.el.innerHTML = `
                 <thead>
                 <tr>
+                    <td>Id</td>
                     <td>Name</td>
                     <td>Age</td>
                     <td>Salary</td>
@@ -29,42 +29,40 @@ class ClearedTable {
                     <td></td>
                 </tr>
             </thead>
-            ${data.map(
-                item => 
-                `<tr id=${item.id}>
-                <td>${item.name}</td>
-                <td>${item.age}</td>
-                <td>${item.salary}</td>
-                <td>${item.city}</td>
-                <td><a href="#delete" data-toggle-id="${item.id}">X</a></td>
-              </tr>`
-              )}
-            </table>
-    `;
+            `;
+      
+    for (let item of data) {
+      let tbody = document.createElement('tbody');
+      tbody.innerHTML += `
+      <tr id=${item.id}>
+      <td>${item.id}</td>
+      <td>${item.name}</td>
+      <td>${item.age}</td>
+      <td>${item.salary}</td>
+      <td>${item.city}</td>
+      <td><a href="#delete" data-toggle-id=${item.id}>Х</td>
+      </tr>     
+      `;
+      this.el.appendChild(tbody);
+      }
 
     document.onclick = event =>  {
       let target = event.target;
       let id = target.getAttribute('data-toggle-id');
       if (!id) return;
-      let elem = document.getElementById(id);
-      elem.remove();
-      this.id = id;
-      this.onRemoved(+id);
+      document.getElementById(id).remove();
+      this.onRemoved(id);
        };
-       
+      
 
-   }
-   //End of constructor
-  onRemoved(id) {
-      console.log(`Из таблицы удален пользователь ${id}`);
    }
   
-
   /**
    * Метод который вызывается после удалении строки
    * @param {number} id - идентификатор удаляемого пользователя
    */
-  
-}
 
-window.ClearedTable = ClearedTable;
+  onRemoved = function(id) {
+    console.log(`Из таблицы удален пользователь ${id}`);
+ }
+  }
