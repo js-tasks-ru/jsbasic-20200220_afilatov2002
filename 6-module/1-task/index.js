@@ -18,10 +18,10 @@ class ClearedTable {
     this.el = document.createElement('table');
     this.el.classList.add('pure-table');
     this.data = data;
-    this.id;
+
     this.el.innerHTML = `
                 <thead>
-                <tr>
+                <tr id={item.id}>
                     <td>Name</td>
                     <td>Age</td>
                     <td>Salary</td>
@@ -29,27 +29,28 @@ class ClearedTable {
                     <td></td>
                 </tr>
             </thead>
-            ${data.map(
-                item => 
-                `<tr id=${item.id}>
-                <td>${item.name}</td>
-                <td>${item.age}</td>
-                <td>${item.salary}</td>
-                <td>${item.city}</td>
-                <td><a href="#delete" data-toggle-id="${item.id}">X</a></td>
-              </tr>`
-              )}
-            </table>
-    `;
+            `;
+      
+    for (let item of data) {
+      let tbody = document.createElement('tbody');
+      tbody.innerHTML += `
+      <tr id=${item.id}>
+      <td>${item.name}</td>
+      <td>${item.age}</td>
+      <td>${item.salary}</td>
+      <td>${item.city}</td>
+      <td><a href="#delete" data-toggle-id=${item.id}>Х</td>
+      </tr>     
+      `;
+      this.el.appendChild(tbody);
+      }
 
     document.onclick = event =>  {
       let target = event.target;
       let id = target.getAttribute('data-toggle-id');
       if (!id) return;
-      let elem = document.getElementById(id);
-      elem.remove();
-      this.id = id;
-      this.onRemoved(+id);
+      let elem = document.getElementById(id).remove();
+      this.onRemoved(id);
        };
        
 
@@ -66,5 +67,3 @@ class ClearedTable {
    */
   
 }
-
-window.ClearedTable = ClearedTable;
