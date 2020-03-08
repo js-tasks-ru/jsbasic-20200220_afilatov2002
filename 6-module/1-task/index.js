@@ -63,6 +63,6 @@ class ClearedTable {
    */
 
   onRemoved = function(id) {
-    console.log(`Из таблицы удален пользователь ${id}`);
+//     console.log(`Из таблицы удален пользователь ${id}`);
  }
   }
